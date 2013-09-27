@@ -1,5 +1,6 @@
 " -*- vim -*-
 " FILE: fortran_line_length.vim
+" Vim plugin
 "
 " DESCRIPTION:
 " According to the file extension of a FORTRAN source file,
@@ -11,12 +12,18 @@
 " use any other valid size for some reason, the commands
 " are available.
 "
-" LAST MODIFICATION: 2009-11-23
+" LAST MODIFICATION: 2009-12-07
 " (C) Copyright 2009 Caglar Toklu <caglartoklu@gmail.com>
 " Maintained by Caglar Toklu <caglartoklu@gmail.com>
-" VERSION: 0.0.1
+" VERSION: 0.0.2
 "
 " CHANGELOG:
+" - 0.0.2, 2009-12-07
+"   - The display format for match is now read from the global variable
+"     g:FORTRANMatchDisplayFormat instead of hard coded settings.
+"     Now you can adapt it to your favorite colorscheme within VIMRC
+"     without modifiying the plugin itself.
+"   - The file is saved in UNIX file format instead of Windows.
 " - 0.0.1, 2009-11-23
 "   - First version.
 "
@@ -25,6 +32,13 @@
 " Although it is specifically for FORTRAN, this plugin
 " should be in the plugin directory, not ftplugin, so that
 " it can remove the matching for other file types.
+"
+" OPTIONS:
+" - g:FORTRANMatchDisplayFormat
+"   The format/color of the matched characters.
+"   The default is:
+"   let g:FORTRANMatchDisplayFormat = 'guifg=#FF0000'
+"   You can set this option from VIMRC.
 "
 " USAGE:
 " All commands defined by this plugin starts with 'FORTRAN'.
@@ -62,29 +76,34 @@ command! -nargs=0 FORTRANRemoveMatching            :
             \ call RemoveFortranMatching()
 
 
+" Set the match display format.
+if !exists('g:FORTRANMatchDisplayFormat')
+    let g:FORTRANMatchDisplayFormat = 'guifg=#FF0000'
+endif
+
 
 function! SetLineLenghtAccordingToFileExtension()
     " Checks the file extension, and it sets the valid
     " line size according to that.
     " This function is called by default.
-    let current_file_extension = expand("%:e")
+    let current_file_extension = expand('%:e')
 
     call RemoveFortranMatching()
-    exec "hi FortranLineMatch guifg=#FF0000"
+    exec 'hi FortranLineMatch ' . g:FORTRANMatchDisplayFormat
 
-    if current_file_extension == "f"
+    if current_file_extension == 'f'
         call SetLineLengthForFortranStandard()
-    elseif current_file_extension == "f77"
+    elseif current_file_extension == 'f77'
         call SetLineLengthForFortranStandard()
-    elseif current_file_extension == "for"
+    elseif current_file_extension == 'for'
         call SetLineLengthForFortranStandard()
-    elseif current_file_extension == "f90"
+    elseif current_file_extension == 'f90'
         call SetLineLengthForFortranExtended()
-    elseif current_file_extension == "f95"
+    elseif current_file_extension == 'f95'
         call SetLineLengthForFortranExtended()
-    elseif current_file_extension == "f03"
+    elseif current_file_extension == 'f03'
         call SetLineLengthForFortranExtended()
-    elseif current_file_extension == "f08"
+    elseif current_file_extension == 'f08'
         call SetLineLengthForFortranExtended()
     endif
 endfunction
@@ -93,7 +112,7 @@ endfunction
 function! SetLineLengthForFortranStandard()
     " Sets the standard fixed format, 72 characters.
     call RemoveFortranMatching()
-    exec "hi FortranLineMatch guifg=#FF0000"
+    exec 'hi FortranLineMatch ' . g:FORTRANMatchDisplayFormat
     let g:fortranMatched = matchadd('FortranLineMatch', '\%>72v.\+')
 endfunction
 
@@ -101,7 +120,7 @@ endfunction
 function! SetLineLengthForFortranCardImage()
     " Sets the card image format, 80 characters.
     call RemoveFortranMatching()
-    exec "hi FortranLineMatch guifg=#FF0000"
+    exec 'hi FortranLineMatch ' . g:FORTRANMatchDisplayFormat
     let g:fortranMatched = matchadd('FortranLineMatch', '\%>80v.\+')
 endfunction
 
@@ -109,14 +128,14 @@ endfunction
 function! SetLineLengthForFortranExtended()
     " Sets the modern, extended format, 132 characters.
     call RemoveFortranMatching()
-    exec "hi FortranLineMatch guifg=#FF0000"
+    exec 'hi FortranLineMatch ' . g:FORTRANMatchDisplayFormat
     let g:fortranMatched = matchadd('FortranLineMatch', '\%>132v.\+')
 endfunction
 
 
 function! RemoveFortranMatching()
     " Removes all the matching set by this plugin.
-    if exists("g:fortranMatched")
+    if exists('g:fortranMatched')
         if g:fortranMatched > 0
             call matchdelete(g:fortranMatched)
             let g:fortranMatched = 0
