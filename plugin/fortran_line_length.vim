@@ -1,7 +1,10 @@
 " -*- vim -*-
 " FILE: fortran_line_length.vim
-" Vim plugin
-" https://github.com/caglartoklu/fortran_line_length.vim
+" PLUGINTYPE: plugin
+" DESCRIPTION: Marks the lines overflowing lines according to the extension of FORTRAN source files.
+" HOMEPAGE: https://github.com/caglartoklu/fortran_line_length.vim
+" LICENSE: https://github.com/caglartoklu/fortran_line_length.vim/blob/master/LICENSE
+" AUTHOR: caglartoklu
 
 if exists("g:loaded_fortran_line_length") || &cp
     " If it already loaded, do not load it again.
@@ -113,6 +116,7 @@ function! s:SetLineLengthForFortranExtended()
     " Sets the modern, extended format, 132 characters.
     call s:RemoveFortranMatching()
     let g:fortranMatched = matchadd(g:FORTRANMatchGroup, '\%>132v.\+', g:FORTRANMatchPriority)
+    Decho "extended"
 endfunction
 
 
