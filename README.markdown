@@ -14,7 +14,7 @@ Vim.org page:
 ### References
 
 - http://gnu.huihoo.org/gcc/gcc-3.3.6/g77/Fortran-Dialect-Options.html
-- http://docs.sun.com/app/docs/doc/805-4939/6j4m0vn6l?a=view
+- http://docs.sun.com/app/docs/doc/805-4939/6j4m0vn6l?a=view (Not available anymore)
 
 ## Changelog
 
@@ -114,7 +114,7 @@ the code will be highlighted as below:
 
 ## Configuration
 
-" These are options that can be customized from your VIMRC:
+These are options that can be customized from your VIMRC:
 
 ### `g:FORTRANMatchDisplayFormat`
 The format/color of the matched characters.
