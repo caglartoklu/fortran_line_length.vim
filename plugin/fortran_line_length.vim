@@ -116,7 +116,6 @@ function! s:SetLineLengthForFortranExtended()
     " Sets the modern, extended format, 132 characters.
     call s:RemoveFortranMatching()
     let g:fortranMatched = matchadd(g:FORTRANMatchGroup, '\%>132v.\+', g:FORTRANMatchPriority)
-    Decho "extended"
 endfunction
 
 
