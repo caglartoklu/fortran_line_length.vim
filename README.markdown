@@ -142,10 +142,3 @@ The default is:
 ## License
 Licensed with 2-clause license ("Simplified BSD License" or "FreeBSD License").
 See the LICENSE file.
-
-
-## Contact Info
-You can find me on
-[Google+](https://plus.google.com/108566243864924912767/posts)
-
-Feel free to send bug reports, or ask questions.
